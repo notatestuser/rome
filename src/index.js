@@ -4,8 +4,8 @@ var ikey = 'romeId';
 var index = [];
 
 function find (thing) { // can be a DOM element or a number
-  if (typeof thing !== 'number' && thing && thing.dataset) {
-    return find(thing.dataset[ikey]);
+  if (typeof thing !== 'number' && thing && thing.getAttribute) {
+    return find(thing.getAttribute(ikey));
   }
   var existing = index[thing];
   if (existing !== no) {
@@ -14,7 +14,8 @@ function find (thing) { // can be a DOM element or a number
 }
 
 function assign (elem, instance) {
-  instance.id = elem.dataset[ikey] = index.push(instance) - 1;
+  instance.id = index.push(instance) + 1;
+  elem.setAttribute(ikey, instance.id);
 }
 
 module.exports = {
